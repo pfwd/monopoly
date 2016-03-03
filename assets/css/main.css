@@ -2,14 +2,15 @@
 #messageBoard{
     background-color: #000;
     color:#FFF;
-    padding:20px;
     height:300px;
     overflow-y: scroll;
     border-radius: 5px;
+    padding:20px;
 }
 #startTurn{
     text-decoration: none;
     margin-top:20px;
+    margin-bottom:20px;
 
 }
 #startTurn:hover{
