@@ -1,3 +1,8 @@
+/**
+ * Log a message to the message board
+ * @param {string} message Message to add to the message board
+ * @param {string} cssClass CSS class for the message
+ */
 var log = function (message, cssClass) {
     var cssClass = (typeof cssClass === 'undefined') ? '' : cssClass;
     $('#messageBoard').append('<p class="messageItem ' + cssClass + '" >' + message + '</p>');
@@ -6,9 +11,13 @@ var log = function (message, cssClass) {
 
     $('#messageBoard').animate({
         scrollTop: $('#messageBoard').scrollTop() - $('#messageBoard').offset().top + $('p:last').offset().top
-    }, 500)
+    }, 500);
 };
 
+/**
+ * Displays user funds
+ * @param {Player} player Player object
+ */
 var displayFunds = function (player) {
     var cssClass = player.cssClass;
 
@@ -21,6 +30,11 @@ var displayFunds = function (player) {
     }, 1000);
 };
 
+/**
+ * Player object. Can either be a computer or a person
+ * @param {array} playerConfig Collection of config values
+ * @returns {Player}
+ */
 function Player(playerConfig) {
     this.id = playerConfig.id;
     this.name = playerConfig.name;
@@ -35,6 +49,11 @@ function Player(playerConfig) {
 
 }
 
+/**
+ * Street object
+ * @param {array} config Street config
+ * @returns {Street}
+ */
 function Street(config) {
     this.name = config.name;
     this.value = config.value;
@@ -43,6 +62,12 @@ function Street(config) {
     this.maxHouses = 4;
     this.houseCost = 50;
 
+    /**
+     * Ask the player a question
+     * @param {Player} player Player to ask
+     * @param {string} message Question to ask
+     * @returns {Street.askQuestion.answer|Boolean}
+     */
     this.askQuestion = function (player, message) {
         if (player.isComputer) {
             var computerChoice = Math.floor(Math.random() * (100 - 50 + 1)) + 1;
@@ -61,6 +86,11 @@ function Street(config) {
         return answer;
     };
 
+    /**
+     * Performs a street action
+     * @param {Player} player Player on the street
+     * @param {array} players Array of players
+     */
     this.performAction = function (player, players) {
 
         console.log('Perfoming action street on ' + this.name);
@@ -100,6 +130,11 @@ function Street(config) {
         return players;
     };
 
+    /**
+     * Buy the street
+     * @param {Player} player Player buying the street
+     * @param {array} playersArray of players
+     */
     this.buy = function (player, players) {
         this.ownerID = player.id;
         var message = player.name + ' has bought ' + this.name;
@@ -111,6 +146,11 @@ function Street(config) {
         return players;
     };
 
+    /**
+     * Add a house to the street
+     * @param {Player} player Owner of the street
+     * @param {array} players Collection of players
+     */
     this.addHouse = function (player, players) {
         this.totalHouses++;
 
@@ -122,6 +162,11 @@ function Street(config) {
         return players;
     };
 
+    /**
+     * Pay rent
+     * @param {Player} player The player paying rent
+     * @param {array} players Collection of players
+     */
     this.payRent = function (player, players) {
         var fee = (this.value * this.totalHouses) > 0 ? this.value * this.totalHouses : this.value;
         var ownerName = players[this.ownerID - 1].name;
@@ -139,7 +184,11 @@ function Street(config) {
     };
 
 }
-
+/**
+ * Collect object Pass GO collect  £200
+ * @param {array} config Collection of config
+ * @returns {Collect}
+ */
 function Collect(config) {
     this.name = config.name;
     this.description = config.description;
@@ -151,7 +200,11 @@ function Collect(config) {
     };
 }
 
-
+/**
+ * Chance object
+ * @param {array} config Collection of chance onfig
+ * @returns {Chance}
+ */
 function Chance(config) {
     this.description = config.description;
     this.value = config.value;
@@ -163,6 +216,11 @@ function Chance(config) {
     };
 }
 
+/**
+ * Community chest
+ * @param {array} config Collection of community chest config
+ * @returns {CommunityChest}
+ */
 function CommunityChest(config) {
     this.description = config.description;
     this.name = config.name;
@@ -174,8 +232,11 @@ function CommunityChest(config) {
     };
 }
 
-
-
+/**
+ * Monopoly game object
+ * @param {array} board Collection of board config
+ * @returns {Monopoly}
+ */
 function Monopoly(board) {
     this.steps = [];
     this.players = [];
@@ -196,14 +257,25 @@ function Monopoly(board) {
         return dice;
     };
 
-
-
+    /**
+     * Set up the game
+     * - Configure all the players
+     * - Configure all the steps
+     *
+     * @param {array} board Board config
+     */
     this.setup = function (board) {
         // Setup the board
         log('Board is setting up');
         this.steps = generateSteps(board);
         this.players = generatePlayers(board);
     };
+
+    /**
+     * Generate the steps (street|community_chest|chance|collect)
+     * @param {array} board Collection of board config
+     * @returns {Array|Monopoly.generateSteps.items}
+     */
     var generateSteps = function (board) {
 
         var l = board.steps.lengh;
@@ -211,6 +283,7 @@ function Monopoly(board) {
         var item = {};
         for (var i = 0; i < board.steps.length; i++) {
 
+            // Instantiate step objects using polymorphism
             switch (board.steps[i].type) {
                 case 'street':
                     item = new Street(board.steps[i]);
@@ -224,7 +297,6 @@ function Monopoly(board) {
                 case 'collect':
                     item = new Collect(board.steps[i]);
                     break;
-
             }
 
             items.push(item);
@@ -233,6 +305,11 @@ function Monopoly(board) {
         return items;
     };
 
+    /**
+     * Generates the players
+     * @param {type} board
+     * @returns {Array|Monopoly.generatePlayers.players}
+     */
     var generatePlayers = function (board) {
 
         var l = board.players.lengh;
@@ -249,9 +326,8 @@ function Monopoly(board) {
     };
 
     /**
-     *
-     * @param {dice} diceRoll
-     * @returns {undefined}
+     * Process a players turn
+     * @param {Player} The Player who is taking the turn
      */
     this.executeTurn = function (player) {
         log('<hr/>');
@@ -282,9 +358,15 @@ function Monopoly(board) {
         return player;
     };
 
+    /**
+     * Moves the player to the step
+     * @param {Player} player Player moving
+     * @param {int} stepCount The position count
+     */
     this.movePlayer = function (player, stepCount) {
 
         var pos = player.currentPosition + stepCount;
+        // If the position is greater than the length of the steps find the difference and start over
         if (pos > this.steps.length) {
             var overlap = pos - this.steps.length;
             player.currentPosition = overlap;
@@ -296,20 +378,21 @@ function Monopoly(board) {
         var stepItem = this.steps[player.currentPosition];
         console.log(stepItem);
         if (stepItem) {
-            console.log('Moved player to step: ' + stepItem.name);
-            if (stepItem.name == 'undefined') {
-                console.log(stepItem);
-            }
             log(player.name + ' has moved to ' + stepItem.name, player.cssClass);
+
+            // Perfom the step action
             stepItem.performAction(player, this.players);
 
+            // Update funds
             displayFunds(player);
         }
-
-
         return player;
     };
 
+    /**
+     * Put the player in jail
+     * @param {Player} player The Player being sent to jail
+     */
     this.putInJail = function (player) {
 
         var totalSteps = board.steps.length;
