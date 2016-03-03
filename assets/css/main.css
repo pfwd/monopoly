@@ -1,6 +1,4 @@
-body{
-    font-family: courier;
-}
+
 #messageBoard{
     background-color: #000;
     color:#FFF;
@@ -9,11 +7,9 @@ body{
     overflow-y: scroll;
     border-radius: 5px;
 }
-a#startTurn{
+#startTurn{
     text-decoration: none;
-    background-color:#EEE;
     margin-top:20px;
-    border-radius: 5px;
 
 }
 #startTurn:hover{

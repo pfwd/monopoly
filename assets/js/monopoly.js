@@ -269,6 +269,7 @@ function Monopoly(board) {
         log('Board is setting up');
         this.steps = generateSteps(board);
         this.players = generatePlayers(board);
+        log('Board is ready!');
     };
 
     /**
@@ -302,6 +303,7 @@ function Monopoly(board) {
             items.push(item);
 
         }
+        log('Added ' + items.length + ' steps to the game');
         return items;
     };
 
@@ -319,6 +321,7 @@ function Monopoly(board) {
 
             player = new Player(board.players[i]);
             players.push(player);
+            log('Welcome ' + player.name);
             displayFunds(player);
 
         }
