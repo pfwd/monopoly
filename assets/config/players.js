@@ -4,13 +4,13 @@ var playersConfig = [
         "id": 1,
         "funds": 1500,
         "isComputer": true,
-        "cssClass":"computer"
+        "cssClass": "computer"
     },
-     {
+    {
         "name": "Peter Fisher",
         "id": 2,
         "funds": 1500,
-        "isComputer":false,
-        "cssClass":"player"
+        "isComputer": false,
+        "cssClass": "player"
     }
 ];

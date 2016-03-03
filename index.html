@@ -4,52 +4,52 @@
         <title>Monopoly In Javascript</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
+
         <link rel="stylesheet" href="assets/css/main.css">
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
-        
+
         <script src="assets/js/jquery-1.12.1.min.js"></script>
         <script src="assets/config/steps.js"></script>
         <script src="assets/config/players.js"></script>
-        <script src="assets/monopoly.js"></script>
-        
-    <script>
-        
-        $(document).ready(function(){
-                var initGame = function(){
-                    
-                     var board = {
+        <script src="assets/js/monopoly.js"></script>
+
+        <script>
+
+            $(document).ready(function () {
+                var initGame = function () {
+
+                    var board = {
                         players: playersConfig,
                         steps: stepsConfig
-                      };
-              
+                    };
+
                     var game = new Monopoly();
                     game.setup(board);
 
                     var playerId = 0;
-                    $('a#startTurn').click(function(){
+                    $('a#startTurn').click(function () {
                         var player = game.players[playerId];
                         playerId = (playerId < 1) ? 1 : 0;
                         game.excuteTurn(player);
-                        
-                        var nextPlayer = game.players[playerId];
-                        $('#startTurn').html('Click for ' +nextPlayer.name + 's go');
-                    });
-              
-            };
-            
-            var everythingLoaded = setInterval(function() {
-                if (/loaded|complete/.test(document.readyState)) {
-                  clearInterval(everythingLoaded);
-                  initGame();
-                }
-              }, 10);
 
-           
-        });
-    </script>
+                        var nextPlayer = game.players[playerId];
+                        $('#startTurn').html('Click for ' + nextPlayer.name + 's go');
+                    });
+
+                };
+
+                var everythingLoaded = setInterval(function () {
+                    if (/loaded|complete/.test(document.readyState)) {
+                        clearInterval(everythingLoaded);
+                        initGame();
+                    }
+                }, 10);
+
+
+            });
+        </script>
     </head>
     <body>
         <div class="container">
