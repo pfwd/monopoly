@@ -119,7 +119,7 @@ function Street(config) {
         } else {
             // No one owns the street
             if (player.funds >= this.value) {
-                var message = player.name + ' Would you like to buy ' + this.name + ' for £' + this.value + '?';
+                var message = player.name + ' would you like to buy ' + this.name + ' for £' + this.value + '?';
                 log(message, 'warning');
                 var buyIt = this.askQuestion(player, message);
                 if (buyIt) {
