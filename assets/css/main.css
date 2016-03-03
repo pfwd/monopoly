@@ -1,0 +1,55 @@
+body{
+    font-family: courier;
+}
+#messageBoard{
+    background-color: #000;
+    color:#FFF;
+    padding:20px;
+    height:300px;
+    overflow-y: scroll;
+    border-radius: 5px;
+}
+a#startTurn{
+    text-decoration: none;
+    background-color:#EEE;
+    margin-top:20px;
+    
+    border-radius: 5px;
+    
+}
+#startTurn:hover{
+    background-color:#444;
+    color:#FFF;
+    text-decoration: none;
+    
+}
+.computer{
+    color:forestgreen;
+}
+.player{
+    color:appworkspace;
+}
+.warning{
+    color:red;
+}
+
+.funds h3{
+    color:#FFF;
+}
+.funds{
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    
+    border-radius: 5px;
+    width: 100px;
+    padding:5px;
+    margin-bottom:10px;
+    text-align: center;
+}
+.highlight{
+    color: red;
+    background-color:#000;
+    font-weight:bold;
+}
