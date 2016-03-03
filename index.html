@@ -32,7 +32,7 @@
                     $('a#startTurn').click(function () {
                         var player = game.players[playerId];
                         playerId = (playerId < 1) ? 1 : 0;
-                        game.excuteTurn(player);
+                        game.executeTurn(player);
 
                         var nextPlayer = game.players[playerId];
                         $('#startTurn').html('Click for ' + nextPlayer.name + 's go');

@@ -253,7 +253,7 @@ function Monopoly(board) {
      * @param {dice} diceRoll
      * @returns {undefined}
      */
-    this.excuteTurn = function (player) {
+    this.executeTurn = function (player) {
         log('<hr/>');
 
         log(player.name + ' is having a turn ', player.cssClass);
