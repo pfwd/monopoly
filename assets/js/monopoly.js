@@ -13,7 +13,16 @@ var log = function (message, cssClass) {
         scrollTop: $('#messageBoard').scrollTop() - $('#messageBoard').offset().top + $('p:last').offset().top
     }, 500);
 };
-
+/**
+ * Log a message to the message board
+ * @param {string} message Message to add to the message board
+ * @param {string} cssClass CSS class for the message
+ */
+var addStreetToPanel = function (player, street) {
+    $('.playerBox[data-player-id="' + player.id + '"]')
+            .find('ul.streetsOwned')
+            .append('<li class="streetName">' + street.name + '</li>');
+};
 /**
  * Displays user funds
  * @param {Player} player Player object
@@ -143,6 +152,7 @@ function Street(config) {
         player.boughtItems.push(this.name);
 
         log(message, player.cssClass);
+        addStreetToPanel(player, this);
         return players;
     };
 
@@ -158,6 +168,7 @@ function Street(config) {
 
         var message = player.name + ' has added a house to ' + this.name;
         console.log(message);
+
         log(message, player.cssClass);
         return players;
     };
