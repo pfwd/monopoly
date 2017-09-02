@@ -1,0 +1,10 @@
+{
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pfwd/monopoly"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "qunitjs": "^2.4.0"
+  }
+}
