@@ -1,2 +1,5 @@
 /nbproject
 /config/deploy.rb
+test/css
+test/js
+node_modules
