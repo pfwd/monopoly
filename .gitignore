@@ -1,4 +1,4 @@
-/nbproject
+.idea
 /config/deploy.rb
 test/css
 test/js
